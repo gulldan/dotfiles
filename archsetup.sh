@@ -27,8 +27,8 @@ sudo pacman -S --noconfirm makepkg
 git clone https://aur.archlinux.org/yay.git
 cd yay && makepkg -si
 
-#Eww install
-yay -Ss eww-wayland
+#Waybar install
+sudo pacman -S --noconfirm waybar
 
 #rofi install
 sudo pacman -S --noconfirm rofi
