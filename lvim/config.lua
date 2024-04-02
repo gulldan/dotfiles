@@ -15,14 +15,6 @@ lvim.builtin.which_key.mappings["gm"] = {
   "<cmd>:GitConflictListQf<CR>", "Get all conflict to quickfix"
 }
 
-lvim.builtin.which_key.mappings["e"] = {
-  "<cmd>:NvimTreeToggle<CR>", "Explorererere"
-}
-
-lvim.builtin.which_key.mappings["a"] = {
-  "<cmd>:NvimTreeToggle<CR>", "Explorererere"
-}
-
 lvim.builtin.which_key.mappings["gt"] = {
   "<cmd>:GitBlameToggle<CR>", "Toggle Git Blame"
 }
@@ -46,9 +38,14 @@ lvim.plugins = {
   'mfussenegger/nvim-dap',
   'rcarriga/nvim-dap-ui',
   "neovim/nvim-lspconfig",
-  "ray-x/go.nvim",
-  'ray-x/guihua.lua',
-  "jeniasaigak/goplay.nvim",
+  {
+    "ray-x/go.nvim",
+    dependencies = {
+      "ray-x/guihua.lua",
+      "neovim/nvim-lspconfig",
+      "nvim-treesitter/nvim-treesitter",
+    },
+  },
   'https://codeberg.org/esensar/nvim-dev-container',
   {
     "sindrets/diffview.nvim",
@@ -93,74 +90,16 @@ lvim.plugins = {
     "folke/todo-comments.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
   },
-  'kwkarlwang/bufresize.nvim',
-  "folke/tokyonight.nvim",
-  {
-    'f-person/git-blame.nvim',
-    config = function ()
-      require('gitblame').setup({
-        enabled = false,
-      })
-    end
-  },
-  -- {
-  --   "folke/noice.nvim",
-  --   event = "VeryLazy",
-  --   opts = {
-  --     -- add any options here
-  --   },
-  --   dependencies = {
-  --     -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
-  --     "MunifTanjim/nui.nvim",
-  --     -- OPTIONAL:
-  --     --   `nvim-notify` is only needed, if you want to use the notification view.
-  --     --   If not available, we use `mini` as the fallback
-  --     "rcarriga/nvim-notify",
-  --   },
-  -- },
-  "artemave/workspace-diagnostics.nvim",
 }
 
 lvim.builtin.project.active = true
 
-lvim.builtin.which_key.mappings["lb"] = {
-  "<cmd>LspRestart<CR>", "Restart"
-}
-
-lvim.builtin.which_key.mappings["to"] = {
-  "<cmd>:sp|te<CR>:resize 11<CR>", "Terminal open"
-}
-
-lvim.builtin.which_key.mappings["gm"] = {
-  "<cmd>:GitConflictListQf<CR>", "Get all conflict to quickfix"
-}
-
-
-lvim.builtin.which_key.mappings["e"] = {
-  "<cmd>:NvimTreeToggle<CR>", "Explorererere"
-}
-
-lvim.builtin.which_key.mappings["a"] = {
-  "<cmd>:NvimTreeToggle<CR>", "Explorererere"
-}
-
-require("devcontainer").setup{}
-require('goplay').setup{}
-
-require("bufresize").setup({
-    register = {
-        trigger_events = { "BufWinEnter", "WinEnter" },
-    },
-    resize = {
-        keys = {},
-        trigger_events = { "VimResized" },
-        increment = false,
-    },
-})
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 require('go').setup({
   -- other setups ....
+  disable_defaults = false,
+  fillstruct = 'gopls',
   lsp_inlay_hints = {
     enable = true,
     style = 'inlay',
@@ -179,15 +118,10 @@ local lsp_manager = require "lvim.lsp.manager"
 lsp_manager.setup("golangci_lint_ls", {
   on_init = require("lvim.lsp").common_on_init,
   capabilities = require("lvim.lsp").common_capabilities(),
-  config = "~/Documents/ukazka/bff/.golangci.yml"
 })
 lsp_manager.setup("bufls", {
   on_init = require("lvim.lsp").common_on_init(),
   capabilities = require("lvim.lsp").common_capabilities(),
-})
-
-lsp_manager.setup("workspace-diagnostics", {
-
 })
 ------------------------
 -- Formatting
@@ -211,7 +145,11 @@ lvim.autocommands = {
     { -- this table is passed verbatim as `opts` to `nvim_create_autocmd`
       pattern = { "*.go" }, -- see `:h autocmd-events`
       command = "silent !gci write --skip-generated -s standard -s \"prefix(git.mobiledep.ru)\" -s default -s blank -s dot -s alias --custom-order --skip-vendor <afile>",
-    }
+    },
+    { -- this table is passed verbatim as `opts` to `nvim_create_autocmd`
+      pattern = { "*.go" }, -- see `:h autocmd-events`
+      command = "GoImport",
+    },
   },
   {
     {
@@ -228,28 +166,6 @@ lvim.autocommands = {
     },
   },
 }
-
-
-
-
------
--- Linters
--- ---
--- local linters = require "lvim.lsp.null-ls.linters"
--- linters.setup { { command = "sqlfluff", filetypes = { "sql" }, extra_args = {"--dialect", "clickhouse"} } }
-
-------------------------
--- LSP
-------------------------
-
-
--- lvim.builtin.which_key.mappings["a"] = {
---   "AI"
--- }
-
--- lvim.builtin.which_key.mappings["aa"] = {
---   vim.fn['codeium#Accept'](), "Accept prompt"
--- }
 
 -- lvim.keys.normal_mode["h"] = "<Nop>"
 -- lvim.keys.normal_mode["k"] = "<Nop>"
