@@ -2,9 +2,8 @@ sudo pacman -Syu --noconfirm
 sudo pacman -S --noconfirm git
 
 #Fonts setup
-sudo pacman -S --noconfirm adobe-source-code-pro-fonts cantarell-fonts fontconfig gnu-free-fonts \
-gsfonts libfontenc libxfont2 noto-fonts noto-fonts-cjk noto-fonts-emoji ttf-ms-fonts ttf-ubuntu-font-family \
-ttf-font-awesome ttf-jetbrains-mono-nerd xorg-fonts-encodings
+sudo pacman -S --noconfirm ttf-dejavu ttf-hack ttf-inconsolata ttf-jetbrains-mono ttf-jetbrains-mono-nerd ttf-liberation ttf-linux-libertine \
+ttf-ms-fonts ttf-ubuntu-font-family adobe-source-code-pro-fonts gnu-free-fonts noto-fonts-emoji
 
 #Nvidia setup
 sudo pacman -S --noconfirm nvidia
@@ -52,11 +51,14 @@ sudo pacman -S --noconfirm go
 sudo pacman -S --noconfirm telegram-desktop
 
 echo "Install done. Copying config"
-cp -r ./alacritty ~/.config/
-cp -r ./doom ~/.config/
-cp -r ./i3 ~/.config/
-cp -r ./lvim ~/.config/
-cp -r ./rofi ~/.config/
+cp -r alacritty ~/.config/
+cp -r doom ~/.config/
+cp -r i3 ~/.config/
+cp -r lvim ~/.config/
+cp -r polybar ~/.config/
+cp -r picom ~/.config/
 cp .zshrc ~/
 cp .Xresources ~/
 cp .xinitrc ~/
+mkdir ~/.config/rofi
+cp config.rasi ~/.config/rofi
