@@ -2,6 +2,7 @@ lvim.builtin.which_key.mappings["lb"] = {
   "<cmd>LspRestart<CR>", "Restart"
 }
 
+vim.opt.conceallevel=2
 vim.opt.relativenumber = true
 lvim.builtin.which_key.mappings["to"] = {
   "<cmd>:sp|te<CR>:resize 11<CR>", "Terminal open"
@@ -17,6 +18,38 @@ lvim.builtin.which_key.mappings["gm"] = {
 
 lvim.builtin.which_key.mappings["gt"] = {
   "<cmd>:GitBlameToggle<CR>", "Toggle Git Blame"
+}
+
+lvim.builtin.which_key.mappings["ga"] = {
+  "<cmd>:silent !git add %<CR>", "Git add current file"
+}
+
+lvim.builtin.which_key.mappings["o"] = {
+  "Obsidian"
+}
+
+lvim.builtin.which_key.mappings["os"] = {
+  "<cmd>:ObsidianSearch<CR>", "search note"
+}
+
+lvim.builtin.which_key.mappings["on"] = {
+  "New note"
+}
+
+lvim.builtin.which_key.mappings["oc"] = {
+  "<cmd>:ObsidianOpen<CR>", "Open current file in obsidian"
+}
+
+lvim.builtin.which_key.mappings["ond"] = {
+  "<cmd>:silent :ObsidianToday<CR>", "Add new daily note"
+}
+
+lvim.builtin.which_key.mappings["ot"] = {
+  "<cmd>:ObsidianToggleCheck<CR>", "Toggle checkbox"
+}
+
+lvim.builtin.which_key.mappings["bc"] = {
+  "<cmd>:write|%bdelete|edit #|normal`<CR>", "Close and write all unactive buffers"
 }
 --
 ------------------------
@@ -35,6 +68,23 @@ lvim.builtin.nvimtree.setup.diagnostics.show_on_dirs = true
 ------------------------
 lvim.plugins = {
   'nvim-treesitter/nvim-treesitter',
+  -- {
+  --   "nvim-telescope/telescope.nvim",
+  --   tag = "0.1.5",
+  --   dependencies = {
+  --     'nvim-lua/plenary.nvim',
+  --     'jonarrien/telescope-cmdline.nvim',
+  --   },
+  --   keys = {
+  --     { ':', '<cmd>Telescope cmdline<cr>', desc = 'Cmdline' }
+  --   },
+  --   opts = {
+  --     extensions = {
+  --       cmdline = {
+  --       },
+  --     }
+  --   },
+  -- },
   'mfussenegger/nvim-dap',
   'rcarriga/nvim-dap-ui',
   "neovim/nvim-lspconfig",
@@ -90,7 +140,51 @@ lvim.plugins = {
     "folke/todo-comments.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
   },
+  {
+    "kylechui/nvim-surround",
+    config = function()
+        require("nvim-surround").setup({
+            -- Configuration here, or leave empty to use defaults
+        })
+    end
+  },
+  {
+  "epwalsh/obsidian.nvim",
+  dependencies = {
+    "nvim-lua/plenary.nvim",
+    "hrsh7th/nvim-cmp",
+  },
+  config = function()
+    require("obsidian").setup({
+      workspaces = {
+        {
+          name = "all",
+          path = "~/conserva",
+        },
+      },
+      daily_notes = {
+        -- Optional, if you keep daily notes in a separate directory.
+        folder = "Daily",
+        -- Optional, if you want to change the date format for the ID of daily notes.
+        date_format = "%Y-%m-%d",
+        -- Optional, default tags to add to each new daily note created.
+        default_tags = { "daily" },
+        -- Optional, if you want to automatically insert a template from your template directory like 'daily.md'
+        template = "Daily.md"
+      },
+      templates = {
+        folder = "~/conserva/Templates",
+        date_format = "%Y-%m-%d",
+      },
+      attachments = {
+        img_folder = "images"
+      },
+      -- see below for full list of options 👇
+    })
+  end,
+  },
 }
+
 
 lvim.builtin.project.active = true
 
@@ -104,13 +198,21 @@ require('go').setup({
     enable = true,
     style = 'inlay',
     show_parameter_hints = true,
-    show_variable_name = false,
-    only_current_line = false,
+    show_variable_name = true,
+    only_current_line = true,
     parameter_hints_prefix = " ",
+    highlights = "Comment",
   },
   icons = {breakpoint = ' ', currentpos = '󱞩'},
   lsp_cfg = {
     capabilities = capabilities,
+    settings = {
+      gopls = {
+        analyses = {
+          fieldalignment = false,
+        }
+      }
+    }
   },
 })
 
@@ -144,7 +246,7 @@ lvim.autocommands = {
     "BufWritePost", -- see `:h autocmd-events`
     { -- this table is passed verbatim as `opts` to `nvim_create_autocmd`
       pattern = { "*.go" }, -- see `:h autocmd-events`
-      command = "silent !gci write --skip-generated -s standard -s \"prefix(git.mobiledep.ru)\" -s default -s blank -s dot -s alias --custom-order --skip-vendor <afile>",
+      command = ":silent !gci write --skip-generated -s standard -s \"prefix(git.mobiledep.ru)\" -s default -s blank -s dot -s alias --custom-order --skip-vendor <afile>",
     },
     { -- this table is passed verbatim as `opts` to `nvim_create_autocmd`
       pattern = { "*.go" }, -- see `:h autocmd-events`
