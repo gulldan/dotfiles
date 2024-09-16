@@ -3,7 +3,7 @@ sudo pacman -S --noconfirm git
 
 #Fonts setup
 sudo pacman -S --noconfirm ttf-dejavu ttf-hack ttf-inconsolata ttf-jetbrains-mono ttf-jetbrains-mono-nerd ttf-liberation ttf-linux-libertine \
-ttf-ms-fonts ttf-ubuntu-font-family adobe-source-code-pro-fonts gnu-free-fonts noto-fonts-emoji
+ttf-ubuntu-font-family adobe-source-code-pro-fonts gnu-free-fonts noto-fonts-emoji
 
 #Nvidia setup
 sudo pacman -S --noconfirm nvidia
