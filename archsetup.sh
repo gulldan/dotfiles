@@ -3,11 +3,11 @@ sudo pacman -S --noconfirm git
 
 #Fonts setup
 sudo pacman -S --noconfirm ttf-dejavu ttf-hack ttf-inconsolata ttf-jetbrains-mono ttf-jetbrains-mono-nerd ttf-liberation ttf-linux-libertine \
-ttf-ubuntu-font-family adobe-source-code-pro-fonts gnu-free-fonts noto-fonts-emoji
+ttf-ubuntu-font-family adobe-source-code-pro-fonts gnu-free-fonts noto-fonts-emoji 
 
 
 #Nvidia setup
-sudo pacman -S --noconfirm nvidia
+sudo pacman -S --noconfirm nvidia cuda docker nvidia-container-toolkit
 
 #paru install
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
@@ -27,7 +27,7 @@ sudo pacman -S --noconfirm xorg-server xterm xclip xorg-xinit xorg-xauth
 sudo pacman -S --noconfirm feh i3-wm i3status
 
 #I3-lock-color
-paru -S --noconfirm i3lock-color
+paru -S --noconfirm i3lock-color vscode sublime-text-dev google-chrome
 
 #Window manager
 sudo pacman -S --noconfirm ly
