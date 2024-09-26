@@ -27,7 +27,7 @@ sudo pacman -S --noconfirm xorg-server xterm xclip xorg-xinit xorg-xauth
 sudo pacman -S --noconfirm feh i3-wm i3status
 
 #I3-lock-color
-paru -S --noconfirm i3lock-color vscode sublime-text-dev google-chrome
+paru -S --noconfirm i3lock-color vscode sublime-text-dev google-chrome nekoray
 
 #Window manager
 sudo pacman -S --noconfirm ly
