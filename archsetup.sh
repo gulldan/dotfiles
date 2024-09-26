@@ -5,13 +5,15 @@ sudo pacman -S --noconfirm git
 sudo pacman -S --noconfirm ttf-dejavu ttf-hack ttf-inconsolata ttf-jetbrains-mono ttf-jetbrains-mono-nerd ttf-liberation ttf-linux-libertine \
 ttf-ubuntu-font-family adobe-source-code-pro-fonts gnu-free-fonts noto-fonts-emoji
 
+
 #Nvidia setup
 sudo pacman -S --noconfirm nvidia
 
-#Yay install
+#paru install
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 sudo pacman -S --noconfirm makepkg
-git clone https://aur.archlinux.org/yay.git
-cd yay && makepkg -si
+git clone https://aur.archlinux.org/paru.git
+cd paru && makepkg -si
 
 #Zsh install
 sudo pacman -S --noconfirm zsh
@@ -19,13 +21,13 @@ sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/to
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.local/zsh-syntax-highlighting
 
 #Xorg
-sudo pacman -S --noconfirm xorg-server xterm xclip
+sudo pacman -S --noconfirm xorg-server xterm xclip xorg-xinit xorg-xauth
 
 #I3 
 sudo pacman -S --noconfirm feh i3-wm i3status
 
 #I3-lock-color
-yay -S --noconfirm i3lock-color
+paru -S --noconfirm i3lock-color
 
 #Window manager
 sudo pacman -S --noconfirm ly
