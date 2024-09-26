@@ -3,11 +3,10 @@ sudo pacman -S --noconfirm git
 
 #Fonts setup
 sudo pacman -S --noconfirm ttf-dejavu ttf-hack ttf-inconsolata ttf-jetbrains-mono ttf-jetbrains-mono-nerd ttf-liberation ttf-linux-libertine \
-ttf-ubuntu-font-family adobe-source-code-pro-fonts gnu-free-fonts noto-fonts-emoji 
-
+ttf-ubuntu-font-family adobe-source-code-pro-fonts gnu-free-fonts noto-fonts-emoji polybar
 
 #Nvidia setup
-sudo pacman -S --noconfirm nvidia cuda docker nvidia-container-toolkit
+sudo pacman -S --noconfirm nvidia cuda docker docker-compose nvidia-container-toolkit
 
 #paru install
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
@@ -21,7 +20,7 @@ sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/to
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.local/zsh-syntax-highlighting
 
 #Xorg
-sudo pacman -S --noconfirm xorg-server xterm xclip xorg-xinit xorg-xauth
+sudo pacman -S --noconfirm xorg-server xterm xclip xorg-xinit xorg-xauth xorg-xrandr
 
 #I3 
 sudo pacman -S --noconfirm feh i3-wm i3status
